@@ -250,6 +250,3 @@ After a task is completed, suggest the immediate recommended comprehensive next 
 
 ### 7. Zero Workarounds Policy
 * **The Rule:** "No workarounds, not because of your spooky reasons." When encountering build errors or dependency resolution failures, never apply band-aid fixes (e.g., commenting out code, arbitrary downgrades, or using deprecated flags). Always pause, investigate the root architectural cause, and implement the modern, recommended approach.
-
-### 8. Preferred UI Testing Environments
-* **The Rule:** The user strongly prefers testing UI and app flows directly on **Windows (Desktop JVM)** or **Chrome (Web)** rather than launching heavy Android/iOS emulators. When iterating on Compose Multiplatform UIs, always prioritize verifying and running the `app-desktop` shell.
