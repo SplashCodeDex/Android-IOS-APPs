@@ -93,7 +93,7 @@ Putting 5 apps with independent versions into one local Gradle monorepo breaks G
 
 ------------------------------
 
-## 1. Codebase Architecture: The Hub-and-Spoke Model
+## 1. Codebase Architecture: The Multi-App Architecture Model
 
 You will maintain 6 distinct Git repositories: 1 Core Stack Engine Repository, and 5 separate Application Repositories. [4, 5]
 
@@ -107,16 +107,16 @@ You will maintain 6 distinct Git repositories: 1 Core Stack Engine Repository, a
                             │
     ┌─────────────────────┼─────────────────────┐
     ▼                     ▼                     ▼
-┌──────────────┐      ┌──────────────┐      ┌──────────────┐
-│  2. APP ONE  │      │  2. APP TWO  │      │ 2. APP THREE │
-│ (Uses v1.4.2)│      │ (Uses v2.0.0)│      │ (Uses v1.4.2)│
-└──────────────┘      └──────────────┘      └──────────────┘
+┌──────────────┐      ┌──────────────┐      ┌──────────────────┐
+│  2. AppHide  │      │ 2. Calculator│      │3. Pregnancy Track│
+│ (Uses v1.4.2)│      │ (Uses v2.0.0)│      │   (Uses v1.4.2)  │
+└──────────────┘      └──────────────┘      └──────────────────┘
 ```
 
 ## Repositories Layout
 
-1. **The Core Engine Repo** (`/company-core-sdk`): This contains your pure Compose Multiplatform code, common data architectures (Ktor, Room), and foundational layout containers. It does not contain an executable app—only library modules. [3, 6, 7, 8]
-2. **The App Repos** (`/app-ecommerce`, `/app-fitness`, etc.): Each app is a lean, completely independent project containing only its platform shells (androidApp, iosApp), custom asset assets, and specialized features. [9, 10]
+1. **The Core Engine Repo** (`/dexstudio-core-sdk`): This contains your pure Compose Multiplatform code, common data architectures (Ktor, Room), and foundational layout containers. It does not contain an executable app—only library modules. [3, 6, 7, 8]
+2. **The App Repos** (`/app-apphide`, `/app-calculator`, `/app-pregnancy-tracker`, `/app-todo-planner`, etc.): Each app is a lean, completely independent project containing only its platform shells (androidApp, iosApp), custom asset assets, and specialized features. [9, 10]
 
 ------------------------------
 
@@ -149,13 +149,13 @@ jobs:
 Each separate application project has its own libs.versions.toml. To upgrade or pin a specific version of your shared architecture, you change exactly one line inside that specific app's version catalog: [11]
 
 ```toml
-# Inside /app-ecommerce/gradle/libs.versions.toml
+# Inside /app-apphide/gradle/libs.versions.toml
 [versions]
-companyCoreSdk = "2.1.0" # App One can upgrade immediately
+dexstudioCoreSdk = "2.1.0" # AppHide can upgrade immediately
 
 [libraries]
-shared-ui = { module = "com.company.core:shared-ui", version.ref = "companyCoreSdk" }
-shared-data = { module = "com.company.core:shared-data", version.ref = "companyCoreSdk" }
+shared-ui = { module = "com.dexstudio.core:shared-ui", version.ref = "dexstudioCoreSdk" }
+shared-data = { module = "com.dexstudio.core:shared-data", version.ref = "dexstudioCoreSdk" }
 ```
 
 ------------------------------
@@ -168,7 +168,7 @@ Because the apps are separated, you eliminate the risk of one developer accident
 
 * **Core Repo:** Uses rigid Semantic Versioning (SemVer) (e.g., MAJOR.MINOR.PATCH).
 * Breaking changes to the core stack (e.g., updating to a new version of Ktor or changing database structures) require a MAJOR version bump. [13, 14]
-* **App Repos:** Maintain completely isolated Git branch flows. App One can safely branch, test, and deploy to production without ever pulling or pulling code from App Two. [15]
+* **App Repos:** Maintain completely isolated Git branch flows. AppHide can safely branch, test, and deploy to production without ever pulling or pulling code from Calculator. [15]
 
 ### The "Local Development" Override (Composite Builds)
 
@@ -177,14 +177,14 @@ The biggest pain of an multi-repo SDK structure is editing core code and wanting
 To prevent developers from bypassing the system, use Gradle Composite Builds inside your apps to substitute the remote dependency with a local directory path when working locally: [17, 18]
 
 ```kotlin
-// Inside /app-ecommerce/settings.gradle.kts
+// Inside /app-apphide/settings.gradle.kts
 pluginManagement { ... }
 
 // Conditional inclusion for seamless local debugging
 if (extra.has("useLocalCore") && extra.get("useLocalCore") == "true") {
-    includeBuild("../company-core-sdk") {
+    includeBuild("../dexstudio-core-sdk") {
         dependencySubstitution {
-            substitute(module("com.company.core:shared-ui")).using(project(":shared-ui"))
+            substitute(module("com.dexstudio.core:shared-ui")).using(project(":shared-ui"))
         }
     }
 }
@@ -196,7 +196,7 @@ if (extra.has("useLocalCore") && extra.get("useLocalCore") == "true") {
 
 * **Zero Local Project Dependencies:** Apps are strictly forbidden from directly linking to internal core module folders via local path scripts relative to their root directory.
 * **Forced Dependency Lock:** Apps must consume the core stack as version-tagged remote Maven binaries. [1]
-* **Isolated CI/CD Pipelines:** App deployment cycles run independently of each other. App One can release 4 times a week, while App Two is updated only once a month.
+* **Isolated CI/CD Pipelines:** App deployment cycles run independently of each other. AppHide can release 4 times a week, while Calculator is updated only once a month.
 
 Avoid AI slops Ideas (like: gradients, emojis, over-reliance on "inter" fonts, Missing Accessibility: Lack of ARIA labels, low color contrast in dark modes, and poor HTML landmarks, uniform component sizing.)
 
