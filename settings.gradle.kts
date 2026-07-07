@@ -25,13 +25,10 @@ dependencyResolutionManagement {
 rootProject.name = "AppHide"
 
 include(":app")
+include(":app-desktop")
 
 val useLocalCore = true // Simulate local dev environment
 if (useLocalCore) {
-    includeBuild("dexstudio-core-sdk") {
-        dependencySubstitution {
-            substitute(module("com.dexstudio.core:shared-ui")).using(project(":shared-ui"))
-            substitute(module("com.dexstudio.core:shared-data")).using(project(":shared-data"))
-        }
-    }
+    include(":dexstudio-core-sdk:shared-ui")
+    include(":dexstudio-core-sdk:shared-data")
 }

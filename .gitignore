@@ -1,18 +1,30 @@
+# IDE
 *.iml
-.gradle
-.kotlin
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+# Gradle and Build Output
+build/
+.gradle/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local configuration
 local.properties
 .env
 debug.keystore
+
+# Kotlin Multiplatform / iOS Specific
+.kotlin/
+.swiftpm/
+*/iosApp/build/
+*/iosApp/Pods/
+*/iosApp/*.xcworkspace/xcuserdata/
+*/iosApp/*.xcodeproj/xcuserdata/
+*/iosApp/*.xcodeproj/project.xcworkspace/xcuserdata/

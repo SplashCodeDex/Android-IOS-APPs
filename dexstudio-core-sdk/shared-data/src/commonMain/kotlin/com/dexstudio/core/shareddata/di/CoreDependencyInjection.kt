@@ -5,7 +5,7 @@ import com.dexstudio.core.shareddata.db.AppDatabase
 import com.dexstudio.core.shareddata.network.NetworkEngine
 import com.dexstudio.core.shareddata.network.createHttpClient
 import org.koin.dsl.module
-import androidx.room.RoomDatabase
+import androidx.room3.RoomDatabase
 
 val coreModule = module {
     single { createHttpClient() }

@@ -1,15 +1,15 @@
 package com.dexstudio.core.shareddata.db
 
-import androidx.room.ConstructedBy
-import androidx.room.Database
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.RoomDatabase
-import androidx.room.RoomDatabaseConstructor
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room3.ConstructedBy
+import androidx.room3.Database
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
+import androidx.room3.RoomDatabase
+import androidx.room3.RoomDatabaseConstructor
+import androidx.room3.Dao
+import androidx.room3.Query
+import androidx.room3.Insert
+import androidx.room3.OnConflictStrategy
 
 @Entity(tableName = "app_config")
 data class AppConfigEntity(

@@ -2,7 +2,7 @@
 dexstudioCoreSdk = "2.1.0"
 agp = "9.2.0"
 kotlin = "2.4.0"
-googleDevtoolsKsp = "2.4.0-1.0.30"
+googleDevtoolsKsp = "2.3.9"
 composeMultiplatform = "1.11.0"
 koin = "4.2.2"
 ktor = "3.5.1"
@@ -95,6 +95,7 @@ firebase-appcheck-recaptcha = { group = "com.google.firebase", name = "firebase-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }

@@ -2,14 +2,14 @@
 dexstudioCoreSdk = "2.1.0"
 agp = "9.2.0"
 kotlin = "2.4.0"
-googleDevtoolsKsp = "2.4.0-1.0.30"
+googleDevtoolsKsp = "2.3.9"
 composeMultiplatform = "1.11.0"
 koin = "4.2.2"
 ktor = "3.5.1"
 coil3 = "3.5.0"
 room3 = "3.0.0"
 kotlinxSerialization = "1.11.0"
-navigationCompose = "2.9.8"
+navigationCompose = "2.9.2"
 
 coreKtx = "1.18.0"
 junit = "4.13.2"
@@ -49,6 +49,8 @@ koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 coil3-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil3-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil3" }
@@ -95,7 +97,9 @@ firebase-appcheck-recaptcha = { group = "com.google.firebase", name = "firebase-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "googleDevtoolsKsp" }

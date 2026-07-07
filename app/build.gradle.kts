@@ -76,8 +76,8 @@ googleServices {
 // Some unused dependencies are commented out below instead of being removed.
 // This makes it easy to add them back in the future if needed.
 dependencies {
-  implementation(libs.shared.ui)
-  implementation(libs.shared.data)
+  implementation(project(":dexstudio-core-sdk:shared-ui"))
+  implementation(project(":dexstudio-core-sdk:shared-data"))
   implementation(platform(libs.firebase.bom))
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.core.ktx)

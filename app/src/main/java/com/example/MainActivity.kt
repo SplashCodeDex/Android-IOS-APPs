@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui.theme.MyApplicationTheme
-import com.dexstudio.core.sharedui.CoreHeader
+import com.dexstudio.core.sharedui.*
+import com.dexstudio.core.sharedui.theme.DeXStudioTheme
 import com.dexstudio.core.shareddata.CoreRepository
 import org.koin.android.ext.android.inject
 import androidx.lifecycle.lifecycleScope
@@ -37,15 +38,34 @@ class MainActivity : ComponentActivity() {
     }
 
     setContent {
-      MyApplicationTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-          Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
-            CoreHeader(title = "AppHide Dashboard")
-            Text(
-              text = data,
-              style = MaterialTheme.typography.bodyLarge,
-              modifier = Modifier.padding(16.dp)
-            )
+      DeXStudioTheme {
+        Scaffold(
+          topBar = { GlassNavigation(title = "AppHide Architecture") },
+          modifier = Modifier.fillMaxSize()
+        ) { innerPadding ->
+          Column(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+             HeroSection(
+                 title = "AppHide.",
+                 subtitle = "Maximum privacy, minimum UI.",
+                 isDark = true
+             ) {
+                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                     PrimaryCTA(text = "Enable Vault", onClick = { })
+                     PillLink(text = "Learn more", isDarkBg = true, onClick = { })
+                 }
+             }
+             HeroSection(
+                 title = "Engine Diagnostics",
+                 subtitle = "Powered by DeXStudio Core SDK",
+                 isDark = false
+             ) {
+                 Text(
+                     text = data,
+                     style = com.dexstudio.core.sharedui.theme.AppTypography.bodyLarge,
+                     color = com.dexstudio.core.sharedui.theme.NearBlack,
+                     modifier = Modifier.padding(16.dp)
+                 )
+             }
           }
         }
       }

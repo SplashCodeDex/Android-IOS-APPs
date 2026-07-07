@@ -10,7 +10,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dexstudio.core.sharedui.CoreHeader
+import com.dexstudio.core.sharedui.*
+import com.dexstudio.core.sharedui.theme.DeXStudioTheme
 import com.dexstudio.core.shareddata.CoreRepository
 import org.koin.android.ext.android.inject
 import androidx.lifecycle.lifecycleScope
@@ -31,15 +32,37 @@ class MainActivity : ComponentActivity() {
     }
     
     setContent {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-          Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
-            CoreHeader(title = "Calculator Dashboard")
-            Text(
-              text = data,
-              modifier = Modifier.padding(16.dp)
-            )
+      DeXStudioTheme {
+        Scaffold(
+          topBar = { GlassNavigation(title = "Calculator Pro") },
+          modifier = Modifier.fillMaxSize()
+        ) { innerPadding ->
+          Column(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+             HeroSection(
+                 title = "Math. Redefined.",
+                 subtitle = "A calculation experience like no other.",
+                 isDark = false
+             ) {
+                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                     PrimaryCTA(text = "Start Calculating", onClick = { })
+                     PillLink(text = "Learn more", isDarkBg = false, onClick = { })
+                 }
+             }
+             HeroSection(
+                 title = "Engine Diagnostics",
+                 subtitle = "Powered by DeXStudio Core SDK",
+                 isDark = true
+             ) {
+                 Text(
+                     text = data,
+                     style = com.dexstudio.core.sharedui.theme.AppTypography.bodyLarge,
+                     color = com.dexstudio.core.sharedui.theme.PureWhite,
+                     modifier = Modifier.padding(16.dp)
+                 )
+             }
           }
         }
+      }
     }
   }
 }

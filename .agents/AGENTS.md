@@ -213,3 +213,43 @@ Follow strictly the Modern Android Architecture (MVVM/MVI) with Clean Architectu
 **SINCE THIS PROJECT WILL BE BASED ON EVERYTHING LATEST, IF YOU WILL INTRODUCE A NEW LIBRARY, DEPENDENCY OR PACKAGE, ALWAYS WEB RESEARCH THE ONLY LATEST RECOMMENDED.**
 
 After a task is completed, suggest the immediate recommended comprehensive next step(s).
+
+------------------------------
+
+## 🚨 KMP 2026 Core Architecture Gotchas
+
+### 1. KMP Configuration Cache vs. Composite Builds (`includeBuild`)
+* **The Problem:** Using Gradle Composite Builds (`includeBuild`) with modern KMP plugins (v2.x) causes a fatal `ClassCastException` inside `SwiftPMLockTaskAggregationBuildService` due to isolated plugin classloaders.
+* **The Rule:** NEVER use `includeBuild` for KMP SDK multi-repo architecture during local development. Always use a flat monorepo structure via `include()` in `settings.gradle.kts` and standard `project()` dependencies to guarantee a unified build classpath.
+
+### 2. Room Multiplatform (v3.0+) Strict Constraints
+* **The Problem:** Room KMP requires specific namespaces and targets that deviate from legacy Android logic.
+* **The Rule:** 
+  1. Always use the `androidx.room3` artifact namespace (e.g., `androidx.room3:room3-runtime`).
+  2. Always import from `androidx.room3.*` (e.g., `androidx.room3.Database`), NOT `androidx.room.*`.
+  3. **DO NOT target `iosX64`** (Intel Mac Simulator). Room 3.0 drops support for this legacy architecture. Declare only `iosArm64()` and `iosSimulatorArm64()`.
+
+### 3. Desktop JVM Plugin Source Mapping
+* **The Problem:** Compiling a Compose Desktop app using `org.jetbrains.kotlin.jvm` inside a KMP structure will silently compile an empty `.jar` and crash with `ClassNotFoundException: MainKt` because it looks for `src/main/kotlin` instead of `src/jvmMain/kotlin`.
+* **The Rule:** When applying the JVM plugin to a Desktop module that shares a KMP structure, explicitly map the source directories in `build.gradle.kts`:
+  ```kotlin
+  sourceSets { main { kotlin.srcDir("src/jvmMain/kotlin") } }
+  ```
+
+### 4. Transitive Compose Multiplatform Dependencies
+* **The Problem:** KMP library modules (`shared-ui`) do NOT transitively export `compose.material3` to consumer application shells (`app-desktop`).
+* **The Rule:** Application shells must explicitly declare `implementation(compose.material3)` and `implementation(compose.ui)` in their own `build.gradle.kts` to access themes and Typography from the shared UI module.
+
+### 5. KSP Versioning Strictness
+* **The Problem:** Guessing KSP versions leads to plugin resolution failures (`Plugin not found`) because KSP releases are strictly coupled to exact Kotlin compiler versions.
+* **The Rule:** NEVER guess a KSP version. KSP versions must follow the format `<kotlin_version>-<ksp_release>` (e.g., `2.1.0-1.0.29`). Always verify the correct corresponding KSP string via web research for the specific Kotlin version defined in `libs.versions.toml`.
+
+### 6. Compose Multiplatform Navigation Artifact
+* **The Problem:** Using the standard Android Jetpack Navigation dependency (`androidx.navigation:navigation-compose`) in a KMP shared module causes "unresolved reference" or target compatibility failures on iOS/Desktop.
+* **The Rule:** For Compose Multiplatform, you must use the official JetBrains port. The correct artifact group is `org.jetbrains.androidx.navigation:navigation-compose`.
+
+### 7. Zero Workarounds Policy
+* **The Rule:** "No workarounds, not because of your spooky reasons." When encountering build errors or dependency resolution failures, never apply band-aid fixes (e.g., commenting out code, arbitrary downgrades, or using deprecated flags). Always pause, investigate the root architectural cause, and implement the modern, recommended approach.
+
+### 8. Preferred UI Testing Environments
+* **The Rule:** The user strongly prefers testing UI and app flows directly on **Windows (Desktop JVM)** or **Chrome (Web)** rather than launching heavy Android/iOS emulators. When iterating on Compose Multiplatform UIs, always prioritize verifying and running the `app-desktop` shell.
