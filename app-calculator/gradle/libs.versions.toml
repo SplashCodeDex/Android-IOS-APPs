@@ -1,0 +1,6 @@
+[versions]
+dexstudioCoreSdk = "2.1.0"
+
+[libraries]
+shared-ui = { module = "com.dexstudio.core:shared-ui", version.ref = "dexstudioCoreSdk" }
+shared-data = { module = "com.dexstudio.core:shared-data", version.ref = "dexstudioCoreSdk" }
