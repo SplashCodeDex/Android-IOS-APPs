@@ -1,8 +1,8 @@
 package com.dexstudio.core.shareddata.di
 
 import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room3.Room
+import androidx.room3.RoomDatabase
 import com.dexstudio.core.shareddata.db.AppDatabase
 import org.koin.dsl.module
 

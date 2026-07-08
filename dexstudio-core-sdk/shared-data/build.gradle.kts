@@ -9,7 +9,7 @@ kotlin {
     jvm()
     android {
         namespace = "com.dexstudio.core.shareddata"
-        compileSdk = 35
+        compileSdk = 36
         minSdk = 24
         
         compilerOptions {

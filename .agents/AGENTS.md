@@ -250,3 +250,19 @@ After a task is completed, suggest the immediate recommended comprehensive next 
 
 ### 7. Zero Workarounds Policy
 * **The Rule:** "No workarounds, not because of your spooky reasons." When encountering build errors or dependency resolution failures, never apply band-aid fixes (e.g., commenting out code, arbitrary downgrades, or using deprecated flags). Always pause, investigate the root architectural cause, and implement the modern, recommended approach.
+
+### 8. Mobile First UI/UX Design System
+
+### 9. Edge-to-Edge UI Compliance
+* **The Problem:** New Android apps often overlook proper system bar rendering, leading to clipped content or ugly solid black navigation bars.
+* **The Rule:** Any newly created Android app shell MUST:
+  1. Call `enableEdgeToEdge()` in `onCreate` before `setContent`.
+  2. Specify `android:windowSoftInputMode="adjustResize"` in its `<activity>` tag within `AndroidManifest.xml`.
+  3. The core `shared-ui` components MUST consume `innerPadding` inside `Scaffold` and utilize `imePadding()` for any custom input fields.
+
+### 10. Automated Testing Enforcements
+* **The Rule:** All future apps must automatically inherit the testing stack: Jacoco, Robolectric, and Roborazzi. **Roborazzi is the EXCLUSIVE screenshot testing framework.** Do NOT use Dropshots (which crashes on AGP 9.2+) or Google's Built-in Compose Preview Testing. Refer to [Testing Strategy](docs/testing.md) for full commands and guidelines. Koin should be used via `koin-test` to swap out Repositories with In-Memory Fakes.
+* **Implementation:** Apply the shared conventions in your app's `build.gradle.kts` by adding the following line **after** the `android {}` block:
+  ```kotlin
+  apply(from = "$rootDir/gradle/test-conventions.gradle.kts")
+  ```

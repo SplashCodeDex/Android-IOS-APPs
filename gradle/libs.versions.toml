@@ -3,7 +3,7 @@ dexstudioCoreSdk = "2.1.0"
 agp = "9.2.0"
 kotlin = "2.4.0"
 googleDevtoolsKsp = "2.3.9"
-composeMultiplatform = "1.11.0"
+composeMultiplatform = "1.11.1"
 koin = "4.2.2"
 ktor = "3.5.1"
 coil3 = "3.5.0"
@@ -38,6 +38,7 @@ roborazzi = "1.59.0"
 firebaseBom = "34.15.0"
 secretsGradlePlugin = "2.0.1"
 googleServices = "4.5.0"
+dropshots = "0.4.1"
 
 [libraries]
 shared-ui = { module = "com.dexstudio.core:shared-ui", version.ref = "dexstudioCoreSdk" }
@@ -45,7 +46,10 @@ shared-data = { module = "com.dexstudio.core:shared-data", version.ref = "dexstu
 
 # Kotlin Multiplatform
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
@@ -91,6 +95,7 @@ roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", versi
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
 roborazzi-junit-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+dropshots = { module = "com.dropbox.dropshots:dropshots-testing", version.ref = "dropshots" }
 firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
 firebase-appcheck-recaptcha = { group = "com.google.firebase", name = "firebase-appcheck-recaptcha" }
 

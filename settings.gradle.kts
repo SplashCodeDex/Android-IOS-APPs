@@ -24,8 +24,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "AppHide"
 
-include(":app")
-include(":app-desktop")
+include(":apps:apphide:android")
+include(":apps:apphide:desktop")
+include(":apps:calculator:android")
 
 val useLocalCore = true // Simulate local dev environment
 if (useLocalCore) {
